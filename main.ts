@@ -9,30 +9,28 @@ namespace esp8266http {
     let rx = SerialPin.P16
     let baud = BaudRate.BaudRate115200
 
+    //% blockId=esp_init
     //% block="ESP8266 init TX %txPin RX %rxPin baud %baudRate"
     export function init(txPin: SerialPin, rxPin: SerialPin, baudRate: BaudRate) {
-        tx = txPin
-        rx = rxPin
-        baud = baudRate
-        serial.redirect(tx, rx, baud)
+        serial.redirect(txPin, rxPin, baudRate)
         basic.pause(2000)
     }
 
+    //% blockId=esp_send_at
     //% block="ESP8266 send AT %cmd wait %ms ms"
     export function sendAT(cmd: string, ms: number) {
         serial.writeString(cmd + "\r\n")
         basic.pause(ms)
     }
 
-        export function connectWiFi(ssid: string, pwd: string) {
-
+    //% blockId=esp_connect_wifi
+    //% block="ESP8266 connect WiFi SSID %ssid PASSWORD %pwd"
+    export function connectWiFi(ssid: string, pwd: string) {
         sendAT("AT+CWMODE=1", 1000)
-        sendAT(
-            "AT+CWJAP=\"" + ssid + "\",\"" + pwd + "\"",
-            6000
-        )
+        sendAT("AT+CWJAP=\"" + ssid + "\",\"" + pwd + "\"", 7000)
     }
 
+    //% blockId=esp_http_get
     //% block="ESP8266 HTTP GET host %host path %path"
     export function httpGet(host: string, path: string) {
 
@@ -47,4 +45,3 @@ namespace esp8266http {
         sendAT(req, 3000)
     }
 }
-
