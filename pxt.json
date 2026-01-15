@@ -1,0 +1,11 @@
+{
+  "name": "custom-esp8266-http",
+  "version": "0.0.1",
+  "description": "ESP8266 HTTP via AT Command",
+  "dependencies": {
+    "core": "*"
+  },
+  "files": [
+    "main.ts"
+  ]
+}
