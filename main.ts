@@ -24,12 +24,11 @@ namespace esp8266http {
         basic.pause(ms)
     }
 
-    //% block="ESP8266 connect WiFi SSID %ssid PASSWORD %password"
-    export function connectWiFi(ssid: string, password: string) {
+        export function connectWiFi(ssid: string, pwd: string) {
 
         sendAT("AT+CWMODE=1", 1000)
         sendAT(
-            "AT+CWJAP=\"" + ssid + "\",\"" + password + "\"",
+            "AT+CWJAP=\"" + ssid + "\",\"" + pwd + "\"",
             6000
         )
     }
