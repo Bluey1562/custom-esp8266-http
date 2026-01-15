@@ -1,5 +1,5 @@
 /**
- * ESP8266 HTTP Library
+ * ESP8266 HTTP Library + WiFi
  */
 
 //% color="#AA278D" weight=100 icon="\uf1eb"
@@ -24,6 +24,16 @@ namespace esp8266http {
         basic.pause(ms)
     }
 
+    //% block="ESP8266 connect WiFi SSID %ssid PASSWORD %password"
+    export function connectWiFi(ssid: string, password: string) {
+
+        sendAT("AT+CWMODE=1", 1000)
+        sendAT(
+            "AT+CWJAP=\"" + ssid + "\",\"" + password + "\"",
+            6000
+        )
+    }
+
     //% block="ESP8266 HTTP GET host %host path %path"
     export function httpGet(host: string, path: string) {
 
@@ -38,3 +48,4 @@ namespace esp8266http {
         sendAT(req, 3000)
     }
 }
+
