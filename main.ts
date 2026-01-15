@@ -26,14 +26,22 @@ namespace esp8266http {
     //% blockId=esp_connect_wifi
     //% block="ESP8266 connect WiFi SSID %ssid PASSWORD %pwd"
     export function connectWiFi(ssid: string, pwd: string) {
+        sendAT("AT", 1000)
         sendAT("AT+CWMODE=1", 1000)
         sendAT("AT+CWJAP=\"" + ssid + "\",\"" + pwd + "\"", 7000)
+    }
+
+    //% blockId=esp_check_wifi
+    //% block="ESP8266 check WiFi connection"
+    export function checkWiFi() {
+        sendAT("AT+CWJAP?", 2000)
     }
 
     //% blockId=esp_http_get
     //% block="ESP8266 HTTP GET host %host path %path"
     export function httpGet(host: string, path: string) {
 
+        sendAT("AT+CIPMUX=0", 1000)
         sendAT("AT+CIPSTART=\"TCP\",\"" + host + "\",80", 2000)
 
         let req =
